@@ -22,25 +22,25 @@ app.use(cookieParser());
 connectDb();
 
 // -----------------------------
-// ✅ CORS Configuration
+// ✅ CORS Configuration (Allow All)
 // -----------------------------
+// This allows any frontend to call your backend safely
 app.use(
   cors({
-    origin: 'https://todo-frontend-3nxt.vercel.app', // your deployed frontend
-    credentials: true,
+    origin: '*', // allow requests from any domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
-// ❌ Remove old app.options('*', cors()) line
-// Express 5 no longer supports '*' wildcard here
-// ✅ Optional: modern wildcard if you want explicit preflight support
+// Optional preflight support
 app.options(/.*/, cors());
 
 // -----------------------------
 // ✅ Test Route
 // -----------------------------
 app.get('/', (req, res) => {
-  res.send('Todo app working ✅');
+  res.send('Todo backend working fine ✅');
 });
 
 // -----------------------------
