@@ -53,6 +53,7 @@ exports.signup = async (req, res) => {
         message: 'user register successful',
         success: 1,
         data: userData,
+        token,
       });
     } catch (error) {
       console.log(error);
@@ -121,6 +122,7 @@ exports.login = async (req, res) => {
       message: 'login successful',
       success: 1,
       data,
+      token,
     });
   } catch (error) {
     console.log(error);
