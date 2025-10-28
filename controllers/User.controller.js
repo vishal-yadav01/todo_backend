@@ -8,7 +8,9 @@ exports.signup = async (req, res) => {
     console.log(email, password);
     const username = 'dummy';
     if (!username || !email || !password)
-      return res.status(404).json({ message: 'data not found', success: 0 });
+      return res
+        .status(404)
+        .json({ message: 'data not found💖💖', success: 0 });
 
     const checkExsitUser = await User.findOne({ email: email });
     console.log(checkExsitUser);
