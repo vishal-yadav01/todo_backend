@@ -15,36 +15,29 @@ dotenv.config();
 const app = express();
 
 // -----------------------------
-// ✅ Middlewares (order matters!)
+// ✅ Middlewares
 // -----------------------------
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // 🧩 Add this line
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // -----------------------------
-// ✅ Dynamic CORS Setup
+// ✅ Universal CORS (Render Safe)
 // -----------------------------
-const allowedOrigins = [
-  'https://todo-frontend-3nxt.vercel.app',
-  'https://todo-frontend-vk1e.vercel.app', // 🧩 Add your new frontend domain
-  'http://localhost:3000', // for local dev
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (like Postman)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.log('❌ Blocked by CORS:', origin);
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: true, // allows all origins dynamically
+    credentials: true, // allow cookies / auth headers
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'x-csrf-token',
+      'X-Requested-With',
+      'Accept',
+      'Origin',
+    ],
+    exposedHeaders: ['set-cookie', 'Authorization'],
   })
 );
 
