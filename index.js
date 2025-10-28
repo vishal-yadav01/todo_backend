@@ -16,7 +16,7 @@ app.use(
     credentials: true,
   })
 );
-
+app.options('*', cors());
 app.get('/', (req, res) => {
   return res.send('Todo app work');
 });
