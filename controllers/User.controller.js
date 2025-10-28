@@ -37,12 +37,12 @@ exports.signup = async (req, res) => {
 
       res.setHeader('Authorization', `Bearer ${token}`);
 
-      // res.cookie('token', token, {
-      //   httpOnly: true,
-      //   sameSite: 'none',
-      //   secure: true,
-      //   maxAge: 2 * 24 * 60 * 60 * 1000,
-      // });
+      res.cookie('token', token, {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        maxAge: 2 * 24 * 60 * 60 * 1000,
+      });
 
       const userData = {
         userName: savedUser.userName,
