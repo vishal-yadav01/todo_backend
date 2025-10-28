@@ -27,7 +27,7 @@ connectDb();
 // This allows any frontend to call your backend safely
 app.use(
   cors({
-    origin: '*', // allow requests from any domain
+    origin: 'https://todo-frontend-3nxt.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
