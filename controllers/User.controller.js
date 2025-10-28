@@ -107,11 +107,10 @@ exports.login = async (req, res) => {
     res.setHeader('Authorization', `Bearer ${token}`);
     res.cookie('token', token, {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: 'Lax',
       secure: true,
       maxAge: 2 * 24 * 60 * 60 * 1000,
     });
-
     const data = {
       userName: findUser.userName,
       email: findUser.email,
