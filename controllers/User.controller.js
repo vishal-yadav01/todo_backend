@@ -39,9 +39,9 @@ exports.signup = async (req, res) => {
 
       res.cookie('token', token, {
         httpOnly: true,
-        secure: true, // must be true on HTTPS
-        sameSite: 'None', // exactly 'None' (case-sensitive)
-        maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
+        secure: true,
+        sameSite: 'None',
+        maxAge: 2 * 24 * 60 * 60 * 1000,
       });
 
       const userData = {

@@ -12,7 +12,7 @@ app.use(cookieParser());
 connectDb();
 app.use(
   cors({
-    origin: 'https://todo-frontend-vk1e.vercel.app',
+    origin: 'https://todo-frontend-3nxt.vercel.app',
     credentials: true,
   })
 );
