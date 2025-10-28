@@ -13,7 +13,7 @@ exports.signup = async (req, res) => {
         .json({ message: 'data not found💖💖', success: 0 });
 
     const checkExsitUser = await User.findOne({ email: email });
-    console.log(checkExsitUser);
+    console.log(checkExsitUser, 'chelk urer');
     if (checkExsitUser) {
       return res
         .status(400)
