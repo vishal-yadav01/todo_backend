@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken');
 
 exports.signup = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    console.log(username, email, password);
+    const { email, password } = req.body;
+    console.log(email, password);
+    const username = 'dummy';
     if (!username || !email || !password)
       return res.status(404).json({ message: 'data not found', success: 0 });
 
