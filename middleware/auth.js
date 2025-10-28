@@ -13,7 +13,7 @@ exports.authMiddleware = async (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, process.env.TOKEN);
+    const decoded = jwt.verify(token, 'todoApp');
 
     req.user = decoded;
 

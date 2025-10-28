@@ -33,7 +33,7 @@ exports.signup = async (req, res) => {
         email: savedUser.email,
       };
 
-      const token = jwt.sign(payload, process.env.TOKEN, { expiresIn: '2d' });
+      const token = jwt.sign(payload, 'todoApp', { expiresIn: '2d' });
 
       res.setHeader('Authorization', `Bearer ${token}`);
 
@@ -102,7 +102,7 @@ exports.login = async (req, res) => {
     }
 
     const payload = { id: findUser._id, email: findUser.email };
-    const token = jwt.sign(payload, process.env.TOKEN, { expiresIn: '2d' });
+    const token = jwt.sign(payload, 'todoApp', { expiresIn: '2d' });
 
     res.setHeader('Authorization', `Bearer ${token}`);
     res.cookie('token', token, {
