@@ -24,34 +24,27 @@ app.use(cookieParser());
 // -----------------------------
 // ✅ Dynamic CORS Setup
 // -----------------------------
-// const allowedOrigins = [
-//   'https://todo-frontend-3nxt.vercel.app',
-//   'https://todo-frontend-vk1e.vercel.app', // 🧩 Add your new frontend domain
-//   'http://localhost:3000', // for local dev
-// ];
-
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       // allow requests with no origin (like Postman)
-//       if (!origin) return callback(null, true);
-//       if (allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         console.log('❌ Blocked by CORS:', origin);
-//         callback(new Error('Not allowed by CORS'));
-//       }
-//     },
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//   })
-// );
+const allowedOrigins = [
+  'https://todo-frontend-3nxt.vercel.app',
+  'https://todo-frontend-vk1e.vercel.app', // 🧩 Add your new frontend domain
+  'http://localhost:3000', // for local dev
+];
 
 app.use(
   cors({
-    origin: 'https://todo-frontend-vk1e.vercel.app',
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log('❌ Blocked by CORS:', origin);
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
