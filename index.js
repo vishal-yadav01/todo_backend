@@ -48,9 +48,6 @@ app.use(
   })
 );
 
-// ✅ Preflight support
-app.options('*', cors());
-
 // -----------------------------
 // ✅ Database Connection
 // -----------------------------
