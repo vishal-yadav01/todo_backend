@@ -11,12 +11,11 @@ app.use(cookieParser());
 connectDb();
 app.use(
   cors({
-    origin: 'https://todo-frontend-vk1e.vercel.app',
+    origin: true,
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['Authorization'],
   })
 );
+
 app.get('/', (req, res) => {
   return res.send('Todo app work');
 });
