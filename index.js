@@ -22,25 +22,38 @@ app.use(cookieParser());
 connectDb();
 
 // -----------------------------
-// ✅ CORS Configuration (Allow All)
+// ✅ Dynamic CORS Setup
 // -----------------------------
-// This allows any frontend to call your backend safely
+const allowedOrigins = [
+  'https://todo-frontend-3nxt.vercel.app', // your live frontend
+  'http://localhost:3000', // local dev
+];
+
 app.use(
   cors({
-    origin: 'https://todo-frontend-3nxt.vercel.app',
+    origin: (origin, callback) => {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
-// Optional preflight support
+// ✅ Preflight support
 app.options(/.*/, cors());
 
 // -----------------------------
-// ✅ Test Route
+// ✅ Base Route
 // -----------------------------
 app.get('/', (req, res) => {
-  res.send('Todo backend working fine ✅');
+  res.send('Todo backend running ✅');
 });
 
 // -----------------------------
