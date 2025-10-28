@@ -39,9 +39,9 @@ exports.signup = async (req, res) => {
 
       res.cookie('token', token, {
         httpOnly: true,
-        sameSite: 'Lax',
-        secure: true,
-        maxAge: 2 * 24 * 60 * 60 * 1000,
+        secure: true, // must be true on HTTPS
+        sameSite: 'None', // exactly 'None' (case-sensitive)
+        maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
       });
 
       const userData = {
@@ -107,9 +107,9 @@ exports.login = async (req, res) => {
     res.setHeader('Authorization', `Bearer ${token}`);
     res.cookie('token', token, {
       httpOnly: true,
-      sameSite: 'none', // must be 'none'
-      secure: true, // must be true for HTTPS
-      maxAge: 2 * 24 * 60 * 60 * 1000,
+      secure: true, // must be true on HTTPS
+      sameSite: 'None', // exactly 'None' (case-sensitive)
+      maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
     });
 
     const data = {
