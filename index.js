@@ -40,13 +40,13 @@ const routes = require('./routes/routes');
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
-app.set('trust proxy', 1); // ✅ Required for cookies to work on Vercel
+app.set('trust proxy', 1);
 
 connectDb();
 
-// ✅ CORS Setup (most important part)
 const FRONTEND_URL = 'https://todo-frontend-vk1e.vercel.app';
 
+// ✅ CORS middleware (MUST be placed before routes)
 app.use(
   cors({
     origin: FRONTEND_URL,
@@ -56,28 +56,17 @@ app.use(
   })
 );
 
-// ✅ Handle preflight requests explicitly (fixes OPTIONS CORS error)
-app.options(
-  '*',
-  cors({
-    origin: FRONTEND_URL,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-);
-
-// ✅ Optional: add manual CORS headers for extra safety
-app.use((req, res, next) => {
+// ✅ Explicitly handle preflight requests
+app.options('*', (req, res) => {
   res.header('Access-Control-Allow-Origin', FRONTEND_URL);
   res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  next();
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.sendStatus(200);
 });
 
 app.get('/', (req, res) => {
-  return res.send('Todo app working ✅');
+  res.send('✅ Todo app working fine');
 });
 
 app.use('/api/v1', routes);
