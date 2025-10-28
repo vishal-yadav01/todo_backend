@@ -39,8 +39,8 @@ exports.signup = async (req, res) => {
 
       res.cookie('token', token, {
         httpOnly: true,
-        sameSite: 'lax',
-        secure: false,
+        sameSite: 'none',
+        secure: true,
         maxAge: 2 * 24 * 60 * 60 * 1000,
       });
 
@@ -105,11 +105,10 @@ exports.login = async (req, res) => {
     const token = jwt.sign(payload, process.env.TOKEN, { expiresIn: '2d' });
 
     res.setHeader('Authorization', `Bearer ${token}`);
-
     res.cookie('token', token, {
       httpOnly: true,
-      sameSite: 'lax',
-      secure: false,
+      sameSite: 'none',
+      secure: true,
       maxAge: 2 * 24 * 60 * 60 * 1000,
     });
 
@@ -136,8 +135,9 @@ exports.logout = async (req, res) => {
   try {
     res.clearCookie('token', {
       httpOnly: true,
-      sameSite: 'lax',
-      secure: false,
+      secure: true,
+      sameSite: 'none',
+      path: '/',
     });
 
     res.removeHeader('Authorization');

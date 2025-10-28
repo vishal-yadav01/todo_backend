@@ -11,7 +11,7 @@ app.use(cookieParser());
 connectDb();
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://todo-frontend-vk1e.vercel.app',
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['Authorization'],
