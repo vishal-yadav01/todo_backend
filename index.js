@@ -13,30 +13,32 @@ const routes = require('./routes/routes');
 // -----------------------------
 dotenv.config();
 const app = express();
-app.use(express.json());
-app.use(cookieParser());
 
 // -----------------------------
-// ✅ Database Connection
+// ✅ Middlewares (order matters!)
 // -----------------------------
-connectDb();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // 🧩 Add this line
+app.use(cookieParser());
 
 // -----------------------------
 // ✅ Dynamic CORS Setup
 // -----------------------------
 const allowedOrigins = [
-  'https://todo-frontend-3nxt.vercel.app', // your live frontend
-  'http://localhost:3000', // local dev
+  'https://todo-frontend-3nxt.vercel.app',
+  'https://todo-frontend-vk1e.vercel.app', // 🧩 Add your new frontend domain
+  'http://localhost:3000', // for local dev
 ];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
+    origin: function (origin, callback) {
       // allow requests with no origin (like Postman)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.log('❌ Blocked by CORS:', origin);
         callback(new Error('Not allowed by CORS'));
       }
     },
@@ -47,7 +49,12 @@ app.use(
 );
 
 // ✅ Preflight support
-app.options(/.*/, cors());
+app.options('*', cors());
+
+// -----------------------------
+// ✅ Database Connection
+// -----------------------------
+connectDb();
 
 // -----------------------------
 // ✅ Base Route
