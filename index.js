@@ -11,7 +11,7 @@ app.use(cookieParser());
 connectDb();
 app.use(
   cors({
-    origin: true,
+    origin: 'https://todo-frontend-vk1e.vercel.app',
     credentials: true,
   })
 );
