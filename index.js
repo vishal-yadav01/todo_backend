@@ -9,11 +9,10 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-app.set('trust proxy', 1);
 connectDb();
 app.use(
   cors({
-    origin: 'https://todo-frontend-vk1e.vercel.app',
+    origin: 'https://todo-frontend-vk1e.vercel.app/login',
     credentials: true,
   })
 );
